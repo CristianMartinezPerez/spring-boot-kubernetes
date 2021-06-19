@@ -39,7 +39,7 @@ pipeline {
             }
       }
 
-        stage('SonarQube analysis') {
+        stage('SAST') {
            tools {
           	    jdk 'JDK11'
               }
