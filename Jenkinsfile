@@ -3,10 +3,12 @@ pipeline {
 
     tools {
         maven 'Maven'
-		    jdk 'JDK8'
     }
     stages {
 	    stage('jdk') {
+        tools {
+          	    jdk 'JDK8'
+              }
 			  steps {
 				bat 'java -version'
 				bat 'javac -version'
