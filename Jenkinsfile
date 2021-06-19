@@ -5,14 +5,9 @@ pipeline {
         maven 'Maven'
     }
     stages {
-        stage ('Compile') {
+        stage ('Package') {
             steps {
-                 bat 'mvn clean compile -e'
-            }
-        }
-        stage ('Test') {
-            steps {
-                 bat 'mvn clean test -e'
+                 bat 'mvn clean package -Dmaven.test.skip=true'
             }
         }
 
