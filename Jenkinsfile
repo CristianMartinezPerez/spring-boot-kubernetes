@@ -5,7 +5,7 @@ pipeline {
         maven 'Maven'
     }
     stages {
-	    stage('jdk') {
+	    stage('jdk8') {
         tools {
           	    jdk 'JDK8'
               }
@@ -29,6 +29,16 @@ pipeline {
                  bat 'mvn clean package -Dmaven.test.skip=true'
             }
         }
+
+        stage('jdk11') {
+        tools {
+          	    jdk 'JDK11'
+              }
+			  steps {
+				bat 'java -version'
+				bat 'javac -version'
+			        }
+			  }
 
         stage('SonarQube analysis') {
            steps{
