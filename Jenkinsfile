@@ -18,7 +18,7 @@ pipeline {
         }
         stage ('Jar') {
             steps {
-                 bat 'mvn clean package -e'
+                 bat 'mvn clean package -Dmaven.test.skip=true'
             }
         }
 
