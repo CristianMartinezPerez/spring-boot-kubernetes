@@ -15,30 +15,29 @@ pipeline {
 			  }
 			}
 	    stage ('Compile') {
+            tools {
+          	    jdk 'JDK8'
+              }
             steps {
                  bat 'mvn clean compile -e'
             }
         }
-        //stage ('Test') {
-        //    steps {
-        //         bat 'mvn clean test -e'
-        //    }
-        //
+      stage ('Test') {
+            tools {
+          	    jdk 'JDK8'
+              }
+            steps {
+               bat 'mvn clean test -e'
+            }
+      
         stage ('Jar') {
+            tools {
+          	    jdk 'JDK8'
+              }
             steps {
                  bat 'mvn clean package -Dmaven.test.skip=true'
             }
         }
-
-        stage('jdk11') {
-        tools {
-          	    jdk 'JDK11'
-              }
-			  steps {
-				bat 'java -version'
-				bat 'javac -version'
-			        }
-			  }
 
         stage('SonarQube analysis') {
            tools {
