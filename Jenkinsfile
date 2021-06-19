@@ -5,15 +5,6 @@ pipeline {
         maven 'Maven'
     }
     stages {
-	    stage('jdk8') {
-        tools {
-          	    jdk 'JDK8'
-              }
-			  steps {
-				bat 'java -version'
-				bat 'javac -version'
-			  }
-			}
 	    stage ('Compile') {
             tools {
           	    jdk 'JDK8'
