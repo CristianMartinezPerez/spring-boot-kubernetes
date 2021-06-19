@@ -3,9 +3,15 @@ pipeline {
 
     tools {
         maven 'Maven'
+		jdk 'JDK'
     }
     stages {
-	
+	    stage('jdk') {
+			  steps {
+				bat 'java -version'
+				bat 'javac -version'
+			  }
+			}
 	    stage ('Compile') {
             steps {
                  bat 'mvn clean compile -e'
