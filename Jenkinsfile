@@ -22,20 +22,20 @@ pipeline {
                  bat 'mvn clean compile -e'
             }
         }
-      stage ('Test') {
-            tools {
-          	    jdk 'JDK8'
-              }
-            steps {
-               bat 'mvn clean test -e'
-            }
-      }
+      // stage ('Test') {
+      //       tools {
+      //     	    jdk 'JDK8'
+      //         }
+      //       steps {
+      //          bat 'mvn clean test -e'
+      //       }
+      // }
       stage ('Jar') {
             tools {
           	    jdk 'JDK8'
               }
             steps {
-                 bat 'mvn clean package -Dmaven.test.skip=true'
+                 bat 'mvn clean package'
             }
       }
 
