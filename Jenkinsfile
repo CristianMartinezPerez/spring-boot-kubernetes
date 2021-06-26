@@ -43,33 +43,32 @@ pipeline {
             }
         }
 
+        stage('Scan Docker'){
+                steps{
+                    figlet 'Scan Docker (Version windows cmd)'
+                    script{
+                        bat 'docker build -t spring-boot-k8s:v1'
+                        bat 'docker run --rm -w /root/.cache/ -v "%cd%:/root/.cache/" aquasec/trivy spring-boot-k8s:v1'
+                        bat 'docker rmi --force aquasec/trivy'
+                        bat 'docker images | findstr spring-boot > contenedor.txt'
+                        bat 'for /f "tokens=3" %a in (contenedor.txt) do docker image rm %a'
+                        bat 'del contenedor.txt'
+
+                    }
+                }
+            }
+
         stage('DAST'){            
-					steps{
+				steps{
                   script{
-                      try {
                           bat 'docker rmi -f owasp/zap2docker-stable'
                           bat 'docker pull owasp/zap2docker-stable'
                           bat 'docker run -w /zap/wrk -v "%cd%:/zap/wrk" -t owasp/zap2docker-stable zap-full-scan.py -t http://zero.webappsecurity.com/ -g gen.conf -r testreport.html'
-                        } catch (Exception e) {
-                            echo 'Error en DAST: ' + e.toString()
-                            bat  'echo Continua Ejecucion para reporte stage siguiente'
-                        }
-
-
                   }
-	              }
+	            }
             } 
             
-             stage('Scan Docker'){
-                    			steps{
-                    			    figlet 'Scan Docker'
-                    		        script{
-                                        bat 'docker run --rm -w /root/.cache/ -v "%cd%:/root/.cache/" aquasec/trivy openjdk:8-jdk-alpine'
-                                        bat 'docker rmi --force aquasec/trivy'
-    
-                    		        }
-                    			}
-                    		}
+
 
     }
 }
