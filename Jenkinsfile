@@ -58,7 +58,7 @@ pipeline {
                     			    figlet 'Scan Docker'
                     		        script{
                                         bat 'docker run --rm -w /root/.cache/ -v "%cd%:/root/.cache/" aquasec/trivy python:3.4-alpine'
-                                        bat 'docker rmi aquasec/trivy'
+                                        bat 'docker rmi --force aquasec/trivy'
     
                     		        }
                     			}
