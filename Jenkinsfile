@@ -55,8 +55,9 @@ pipeline {
                         bat 'for /f "tokens=3" %a in (contenedor.txt) do docker image rm %a'
                         bat 'del contenedor.txt'
                         */
-                        
-                        bat 'docker run --rm -w /root/.cache/ -v "%cd%:/root/.cache/" aquasec/trivy --format template --template "@contrib/html.tpl" -o scan.html openjdk:8-jdk-alpine'
+
+                        /*bat 'docker run --rm -w /root/.cache/ -v "%cd%:/root/.cache/" aquasec/trivy --format template --template "@contrib/html.tpl" -o scan.html openjdk:8-jdk-alpine'*/
+                        bat 'docker run --rm -w /root/.cache/ -v "%cd%:/root/.cache/" aquasec/trivy openjdk:8-jdk-alpine > scan.txt'
                         bat 'docker rmi --force aquasec/trivy'
 
                     }
