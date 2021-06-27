@@ -47,12 +47,17 @@ pipeline {
                 steps{
                     figlet 'Scan Docker (Version windows cmd)'
                     script{
+                        /* 
                         bat 'docker build -t spring-boot-k8s:v1 .'
                         bat 'docker run --rm -w /root/.cache/ -v "%cd%:/root/.cache/" aquasec/trivy spring-boot-k8s:v1'
                         bat 'docker rmi --force aquasec/trivy'
                         bat 'docker images | findstr spring-boot > contenedor.txt'
                         bat 'for /f "tokens=3" %a in (contenedor.txt) do docker image rm %a'
                         bat 'del contenedor.txt'
+                        */
+                        
+                        bat 'docker run --rm -w /root/.cache/ -v "%cd%:/root/.cache/" aquasec/trivy --format template --template "@contrib/html.tpl" -o scan.html openjdk:8-jdk-alpine'
+                        bat 'docker rmi --force aquasec/trivy'
 
                     }
                 }
